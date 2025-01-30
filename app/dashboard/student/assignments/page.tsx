@@ -82,7 +82,7 @@ export default function AssignmentsPage() {
             </div>
           ))
         ) : (
-          <div className="text-center text-gray-600">Aucun devoir trouvé.</div>
+          <div className="text-center text-gray-600">Aucun devoir.</div>
         )}
       </div>
     </div>

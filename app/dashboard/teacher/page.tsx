@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { auth, db } from "@/lib/firebase";
 import { doc, getDoc, collection, getDocs } from "firebase/firestore";
 import { Button } from "@/components/ui/button";
+import { User, FileText } from "lucide-react"; // Ajout d'icônes
 
 export default function TeacherDashboard() {
   const [userData, setUserData] = useState<any>(null);
@@ -51,7 +52,7 @@ export default function TeacherDashboard() {
   }, [router]);
 
   if (loading) {
-    return <div>Chargement...</div>;
+    return <div className="min-h-[80vh] flex items-center justify-center">Chargement...</div>;
   }
 
   if (!userData) {
@@ -59,22 +60,33 @@ export default function TeacherDashboard() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4">
-      <h1 className="text-3xl font-bold mb-4">Tableau de bord - Enseignant</h1>
-      <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-lg mb-8">
-        <h2 className="text-xl font-semibold mb-4">Informations personnelles</h2>
+    <div className="flex flex-col items-center justify-center p-6 bg-gray-100">
+      {/* En-tête */}
+      <div className="w-full max-w-4xl p-6 bg-white shadow-lg rounded-lg mb-6">
+        <h1 className="text-3xl font-bold text-center text-gray-800">Tableau de bord - Enseignant</h1>
+        <p className="text-center text-gray-600 mt-2">Bienvenue dans votre espace enseignant</p>
+      </div>
+
+      {/* Informations personnelles */}
+      <div className="w-full max-w-4xl p-6 bg-white shadow-md rounded-lg mb-6">
+        <h2 className="text-2xl font-semibold text-gray-800 mb-4 flex items-center">
+          <User className="mr-2" /> Informations personnelles
+        </h2>
         <div className="mb-4">
-          <strong>Email :</strong> {userData.email}
+          <strong className="text-gray-700">Email :</strong> {userData.email}
         </div>
         <div className="mb-4">
-          <strong>Rôle :</strong> {userData.role}
+          <strong className="text-gray-700">Rôle :</strong> {userData.role}
         </div>
       </div>
 
-      <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-lg">
-        <h2 className="text-xl font-semibold mb-4">Devoirs Créés</h2>
+      {/* Mes Devoirs */}
+      <div className="w-full max-w-4xl p-6 bg-white shadow-md rounded-lg mb-6">
+        <h2 className="text-2xl font-semibold text-gray-800 mb-4 flex items-center">
+          <FileText className="mr-2" /> Mes Devoirs
+        </h2>
         {assignments.length === 0 ? (
-          <div>Aucun devoir trouvé.</div>
+          <div>Aucun devoir créé.</div>
         ) : (
           assignments.map((assignment, index) => (
             <div key={index} className="bg-gray-100 p-4 rounded-lg shadow-md mb-4">
@@ -89,10 +101,10 @@ export default function TeacherDashboard() {
             </div>
           ))
         )}
-
         <Button
           onClick={() => router.push("/dashboard/teacher/assignments/create")}
-          className="mt-4 w-full"
+          className="w-full mt-4"
+          size={"xl"}
         >
           Créer un nouveau devoir
         </Button>
