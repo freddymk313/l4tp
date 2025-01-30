@@ -22,7 +22,7 @@ export default function CreateTP() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [dueDate, setDueDate] = useState<Date | undefined>(undefined);
-  const [attachment, setAttachment] = useState<string>(""); // Pour gérer les liens ou fichiers
+  const [link, setLink] = useState<string>(""); // Pour gérer les liens ou fichiers
   const [status, setStatus] = useState("Ouvert"); // Statut initial : Ouvert
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -34,7 +34,7 @@ export default function CreateTP() {
       return;
     }
 
-    if (!title || !description || !dueDate || !attachment) {
+    if (!title || !description || !dueDate || !link) {
       alert("Veuillez remplir tous les champs !");
       return;
     }
@@ -47,7 +47,7 @@ export default function CreateTP() {
         title,
         description,
         dueDate,
-        attachment,
+        link,
         status,
         teacherId: auth.currentUser.uid,
         createdAt: new Date(),
@@ -133,13 +133,13 @@ export default function CreateTP() {
         {/* Pièces jointes */}
         <div className="mb-4">
           <label className="text-gray-700 font-semibold" htmlFor="attachment">
-            Pièces jointes (PDF, ZIP, ou lien)
+            Lien fichier Drive ou Github
           </label>
           <Input
             id="attachment"
-            value={attachment}
-            onChange={(e) => setAttachment(e.target.value)}
-            placeholder="Entrez un lien ou téléchargez un fichier"
+            value={link}
+            onChange={(e) => setLink(e.target.value)}
+            placeholder="Entrez un lien"
             className="mt-2"
             required
           />
