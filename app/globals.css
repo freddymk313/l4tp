@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer base {
+  :root {
+    /* Couleurs principales */
+    --background: 0 0% 97%; /* Un gris clair pour le fond */
+    --foreground: 224 71.4% 4.1%; /* Texte principal */
+    --card: 0 0% 100%; /* Blanc pour les cartes */
+    --card-foreground: 224 71.4% 4.1%; /* Texte sur les cartes */
+    --popover: 0 0% 100%; /* Fond des popovers */
+    --popover-foreground: 224 71.4% 4.1%; /* Texte des popovers */
+
+    /* Couleur principale */
+    --primary: 221.2 83.2% 53.3%; /* Rouge profond comme couleur clé */
+    --primary-foreground: 0 0% 100%; /* Texte clair sur les boutons rouges */
+
+    /* Couleur secondaire */
+    --secondary: 220 20% 88%; /* Bleu clair pour le contraste */
+    --secondary-foreground: 224 71.4% 4.1%; /* Texte sombre sur fond secondaire */
+
+    /* Couleurs neutres */
+    --muted: 220 15% 90%; /* Gris doux pour des éléments peu proéminents */
+    --muted-foreground: 220 10% 40%; /* Texte neutre sur fond gris */
+
+    /* Couleur accentuée */
+    --accent: 43 74% 55%; /* Vert frais pour mettre en valeur des actions */
+    --accent-foreground: 0 0% 100%; /* Texte clair sur fond accentué */
+
+    /* Couleur destructive */
+    --destructive: 0 65% 50%; /* Rouge pour les actions de suppression */
+    --destructive-foreground: 0 0% 100%; /* Texte clair sur fond rouge */
+
+    /* Autres éléments */
+    --border: 220 15% 85%; /* Couleur des bordures */
+    --input: 220 15% 85%; /* Fond des champs de saisie */
+    --ring: 221.2 83.2% 53.3%; /* Anneaux de focus */
+
+    --radius: 0.5rem;
+
+    /* Graphiques ou détails */
+    --chart-1: 220 70% 50%; /* Bleu vibrant */
+    --chart-2: 43 74% 55%; /* Vert clair */
+    --chart-3: 340 65% 55%; /* Rose vif */
+    --chart-4: 30 80% 55%; /* Orange doux */
+    --chart-5: 160 60% 45%; /* Teinte turquoise */
+  }
+
+  .dark {
+    /* Mode sombre */
+    --background: 224 71.4% 4.1%; /* Rouge profond comme fond */
+    --foreground: 0 0% 100%; /* Texte clair */
+    --card: 224 71.4% 6.1%; /* Rouge foncé */
+    --card-foreground: 0 0% 100%; /* Texte clair sur cartes */
+    --popover: 224 71.4% 6.1%; /* Popovers dans le même ton */
+    --popover-foreground: 0 0% 100%; /* Texte clair pour popovers */
+
+    --primary: 221.2 83.2% 53.3%; /* Blanc pour les boutons */
+    --primary-foreground: 224 71.4% 4.1%; /* Texte rouge sur boutons */
+
+    --secondary: 220 15% 20%; /* Bleu nuit */
+    --secondary-foreground: 0 0% 100%; /* Texte clair sur fond bleu nuit */
+
+    --muted: 220 20% 15%; /* Gris foncé */
+    --muted-foreground: 220 10% 60%; /* Texte gris clair */
+
+    --accent: 43 74% 55%; /* Vert frais */
+    --accent-foreground: 0 0% 100%; /* Texte clair */
+
+    --destructive: 0 62% 30%; /* Rouge sombre */
+    --destructive-foreground: 0 0% 100%; /* Texte clair */
+
+    --border: 224 71.4% 10%; /* Bordures plus claires */
+    --input: 224 71.4% 10%; /* Fond des champs de saisie */
+    --ring: 221.2 83.2% 53.3%; /* Anneaux */
+
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Cacher la barre de défilement tout en permettant le défilement */
+.scrollbar-hide {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
