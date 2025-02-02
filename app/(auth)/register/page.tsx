@@ -17,6 +17,8 @@ import {
 import Link from "next/link";
 
 export default function RegisterPage() {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("student"); // Par défaut étudiant
@@ -28,6 +30,11 @@ export default function RegisterPage() {
   };
 
   const handleRegister = async () => {
+    if (!firstName || !lastName || !email || !password) {
+      alert("Veuillez remplir tous les champs !");
+      return;
+    }
+
     setLoading(true);
     try {
       const userCredential = await createUserWithEmailAndPassword(
@@ -37,8 +44,13 @@ export default function RegisterPage() {
       );
       const user = userCredential.user;
 
-      // Ajouter l'utilisateur à Firestore avec son rôle
-      await setDoc(doc(db, "users", user.uid), { email, role });
+      // Ajouter l'utilisateur à Firestore avec son prénom et son nom
+      await setDoc(doc(db, "users", user.uid), {
+        prenom: firstName,
+        nom: lastName,
+        email,
+        role,
+      });
 
       // Rediriger après l'inscription
       router.push(
@@ -54,6 +66,23 @@ export default function RegisterPage() {
   return (
     <div className="flex flex-col w-full md:w-[30%] items-center justify-center h-screen gap-4 p-4">
       <h1 className="text-3xl font-bold mb-4">Inscription</h1>
+
+      <Input
+        placeholder="Prénom"
+        type="text"
+        value={firstName}
+        onChange={(e) => setFirstName(e.target.value)}
+        className="rounded-lg py-6"
+      />
+
+      <Input
+        placeholder="Nom"
+        type="text"
+        value={lastName}
+        onChange={(e) => setLastName(e.target.value)}
+        className="rounded-lg py-6"
+      />
+
       <Input
         placeholder="Email"
         type="email"
@@ -61,6 +90,7 @@ export default function RegisterPage() {
         onChange={(e) => setEmail(e.target.value)}
         className="rounded-lg py-6"
       />
+
       <Input
         placeholder="Mot de passe"
         type="password"
@@ -76,7 +106,6 @@ export default function RegisterPage() {
         </SelectTrigger>
         <SelectContent>
           <SelectItem value="student">Étudiant</SelectItem>
-          {/* <SelectItem value="teacher">Enseignant</SelectItem> */}
         </SelectContent>
       </Select>
 

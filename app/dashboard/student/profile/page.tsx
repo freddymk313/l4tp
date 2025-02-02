@@ -55,6 +55,12 @@ export default function StudentProfile() {
           <User className="mr-2" /> Informations personnelles
         </h2>
         <div className="mb-4">
+          <strong className="text-gray-700">Prenom :</strong> {userData.prenom}
+        </div>
+        <div className="mb-4">
+          <strong className="text-gray-700">Nom :</strong> {userData.nom}
+        </div>
+        <div className="mb-4">
           <strong className="text-gray-700">Email :</strong> {userData.email}
         </div>
         <div className="mb-4">

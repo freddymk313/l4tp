@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { auth } from "@/lib/firebase";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { FileText, LayoutDashboard, LogOut, User, Clipboard, Users } from "lucide-react"; // Ajout d'icônes pour les enseignants
+import { FolderCheck } from "lucide-react";
 
 export default function TeacherLayout({
   children,
@@ -45,9 +46,9 @@ export default function TeacherLayout({
             >
               <Clipboard className="text-xl" />
             </Link>
-            {/* <Link href="/dashboard/teacher/users" className="text-foreground">
-              <Users className="text-xl" />
-            </Link> */}
+            <Link href="/dashboard/teacher/assignments-submited" className="text-foreground">
+              <FolderCheck className="text-xl" />
+            </Link>
             <Link href="/dashboard/teacher/profile" className="text-foreground">
               <User className="text-xl" />
             </Link>

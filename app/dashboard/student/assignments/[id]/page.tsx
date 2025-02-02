@@ -6,6 +6,9 @@ import { db, auth } from '@/lib/firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import Link from 'next/link';
+import { Textarea } from '@/components/ui/textarea';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 
 interface Assignment {
   id: string;
@@ -120,7 +123,7 @@ export default function AssignmentDetails() {
     <div className='max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-6'>
       <h1 className='text-2xl font-bold text-gray-800'>{assignment.title}</h1>
       <p className='text-gray-600 mt-2'>
-        {assignment.description.length > 100 ? `${assignment.description.slice(0, 100)}...` : assignment.description}
+        {assignment.description}
       </p>
 
       <div className='mt-4'>
@@ -137,39 +140,42 @@ export default function AssignmentDetails() {
       {/* Section Déposer TP */}
       <div className='mt-6 p-4 border border-gray-300 rounded-lg'>
         <h2 className='text-lg font-semibold text-gray-800'>📤 Déposer votre TP</h2>
-        {message && <p className='mt-2 text-gray-600'>{message}</p>}
+        {message && <p className='mt-2 text-green-700 bg-green-200 text-center p-2 rounded-lg'>{message}</p>}
         
-        <textarea
-          className='mt-2 w-full border p-2 rounded-lg'
-          placeholder='Ajouter une description (facultatif)'
+        <Textarea
+          className='mt-2'
+          placeholder='Ajouter une description'
           value={description}
+          required
           onChange={(e) => setDescription(e.target.value)}
         />
 
         {assignment.submissionType === 'pdf' ? (
-          <input
+          <Input
             type='file'
             accept='application/pdf'
-            className='mt-2 w-full border p-2 rounded-lg'
+            className='mt-2'
             onChange={(e) => setFile(e.target.files ? e.target.files[0] : null)}
           />
         ) : (
-          <input
+          <Input
             type='text'
-            className='mt-2 w-full border p-2 rounded-lg'
+            className='mt-2'
             placeholder='Entrez le lien de votre TP'
+            required
             value={link}
             onChange={(e) => setLink(e.target.value)}
           />
         )}
 
-        <button
+        <Button
           onClick={handleSubmission}
-          className='mt-3 bg-blue-600 text-white px-4 py-2 rounded-lg disabled:bg-gray-400'
+          className='mt-4 w-full'
+          size={"xl"}
           disabled={uploading}
         >
           {uploading ? 'Dépôt en cours...' : 'Déposer le TP'}
-        </button>
+        </Button>
       </div>
     </div>
   );

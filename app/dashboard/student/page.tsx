@@ -60,10 +60,16 @@ export default function StudentDashboard() {
         <h2 className="text-2xl font-semibold text-gray-800 mb-4 flex items-center">
           <User className="mr-2" /> Informations personnelles
         </h2>
-        <div className="mb-4">
+        <div className="mb-2">
+          <strong className="text-gray-700">Prenom :</strong> {userData.prenom}
+        </div>
+        <div className="mb-2">
+          <strong className="text-gray-700">Nom :</strong> {userData.nom}
+        </div>
+        <div className="mb-2">
           <strong className="text-gray-700">Email :</strong> {userData.email}
         </div>
-        <div className="mb-4">
+        <div className="mb-2">
           <strong className="text-gray-700">Rôle :</strong> {userData.role}
         </div>
       </div>
