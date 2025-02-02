@@ -3,9 +3,9 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { auth, db } from "@/lib/firebase";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { Button } from "@/components/ui/button";
-import { FileText, Clock, CheckCircle } from "lucide-react"; // Ajout d'icônes
+import { FileText, Clock, CheckCircle, Upload } from "lucide-react"; // Icône ajoutée pour le dépôt
 
 export default function AssignmentsPage() {
   const [assignments, setAssignments] = useState<any[]>([]);
@@ -20,9 +20,8 @@ export default function AssignmentsPage() {
       }
 
       try {
-        const assignmentsRef = collection(db, "assignments");
-        const q = query(assignmentsRef, where("studentId", "==", auth.currentUser.uid));
-        const querySnapshot = await getDocs(q);
+        const assignmentsRef = collection(db, "tps");
+        const querySnapshot = await getDocs(assignmentsRef);
 
         const fetchedAssignments = querySnapshot.docs.map(doc => ({
           id: doc.id,
@@ -61,11 +60,13 @@ export default function AssignmentsPage() {
                   <FileText className="mr-2" />
                   {assignment.title}
                 </h2>
-                <span className={`text-sm font-semibold ${assignment.status === "completed" ? "text-green-600" : "text-yellow-600"}`}>
-                  {assignment.status === "completed" ? "Terminé" : "En cours"}
+                <span className={`text-sm font-semibold ${assignment.status === "Fermer" ? "text-green-600" : "text-yellow-600"}`}>
+                  {assignment.status}
                 </span>
               </div>
-              <p className="text-gray-700 mt-2">{assignment.description}</p>
+              <p className="text-gray-700 mt-2">
+                {assignment.description.length > 100 ? `${assignment.description.slice(0, 100)}...` : assignment.description}
+              </p>
               <div className="flex items-center justify-between mt-4">
                 <div className="text-sm text-gray-600 flex items-center">
                   <Clock className="mr-2" />

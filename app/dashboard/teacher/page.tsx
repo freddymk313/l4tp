@@ -39,7 +39,7 @@ export default function TeacherDashboard() {
 
     const fetchAssignments = async () => {
       try {
-        const assignmentsSnapshot = await getDocs(collection(db, "assignments"));
+        const assignmentsSnapshot = await getDocs(collection(db, "tps"));
         const assignmentsData = assignmentsSnapshot.docs.map((doc) => doc.data());
         setAssignments(assignmentsData);
       } catch (error) {
@@ -68,7 +68,7 @@ export default function TeacherDashboard() {
       </div>
 
       {/* Informations personnelles */}
-      <div className="w-full max-w-4xl p-6 bg-white shadow-md rounded-lg mb-6">
+      {/* <div className="w-full max-w-4xl p-6 bg-white shadow-md rounded-lg mb-6">
         <h2 className="text-2xl font-semibold text-gray-800 mb-4 flex items-center">
           <User className="mr-2" /> Informations personnelles
         </h2>
@@ -78,7 +78,7 @@ export default function TeacherDashboard() {
         <div className="mb-4">
           <strong className="text-gray-700">Rôle :</strong> {userData.role}
         </div>
-      </div>
+      </div> */}
 
       {/* Mes Devoirs */}
       <div className="w-full max-w-4xl p-6 bg-white shadow-md rounded-lg mb-6">
@@ -89,15 +89,20 @@ export default function TeacherDashboard() {
           <div>Aucun devoir créé.</div>
         ) : (
           assignments.map((assignment, index) => (
-            <div key={index} className="bg-gray-100 p-4 rounded-lg shadow-md mb-4">
+            <div
+              key={index}
+              className="bg-gray-100 p-4 flex items-center justify-between rounded-lg shadow-md mb-4"
+            >
               <h3 className="text-lg font-semibold">{assignment.title}</h3>
-              <p>{assignment.description}</p>
-              <Button
-                onClick={() => router.push(`/dashboard/teacher/assignments/${assignment.id}`)}
-                className="w-full mt-2"
+              <p className="text-primary">{assignment.status}</p>
+              {/* <button
+                onClick={() =>
+                  router.push(`/dashboard/teacher/assignments/${assignment.id}`)
+                }
+                className="mt-2 py-2 px-4 border-2 border-blue-500 text-blue-500 bg-transparent rounded-full flex items-center"
               >
                 Voir le devoir
-              </Button>
+              </button> */}
             </div>
           ))
         )}
